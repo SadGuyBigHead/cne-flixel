@@ -237,7 +237,7 @@ class FlxReplay
 	function init():Void
 	{
 		_capacity = 100;
-		_frames = new Array<FrameRecord>( /*_capacity*/);
+		_frames = new Array<FrameRecord>(/*_capacity*/);
 		FlxArrayUtil.setLength(_frames, _capacity);
 		frameCount = 0;
 	}

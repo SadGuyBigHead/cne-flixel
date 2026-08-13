@@ -41,7 +41,7 @@ class FlxBaseTilemap<Tile:FlxObject> extends FlxObject
 		 0,   0, 0, 0,  0,   0, 0,   0, 0, 0, 0, 0,  0,   0, 0,   0,
 		 0, 199, 0, 0,  0, 202, 0, 203, 0, 0, 0, 0,  0, 208, 0, 209
 	];
-	
+
 	static var diagonalPathfinder = new FlxDiagonalPathfinder();
 
 	public var widthInTiles(default, null):Int = 0;
@@ -353,8 +353,8 @@ class FlxBaseTilemap<Tile:FlxObject> extends FlxObject
 	 *                          Can override and customize per-tile-type collision behavior using setTileProperties().
 	 * @return  A reference to this instance of FlxTilemap, for chaining as usual :)
 	 */
-	public function loadMapFromArray(mapData:Array<Int>, widthInTiles:Int, heightInTiles:Int, tileGraphic:FlxTilemapGraphicAsset, tileWidth = 0, tileHeight = 0,
-			?autoTile:FlxTilemapAutoTiling, startingIndex = 0, drawIndex = 1, collideIndex = 1)
+	public function loadMapFromArray(mapData:Array<Int>, widthInTiles:Int, heightInTiles:Int, tileGraphic:FlxTilemapGraphicAsset, tileWidth = 0,
+			tileHeight = 0, ?autoTile:FlxTilemapAutoTiling, startingIndex = 0, drawIndex = 1, collideIndex = 1)
 	{
 		this.widthInTiles = widthInTiles;
 		this.heightInTiles = heightInTiles;
@@ -415,17 +415,16 @@ class FlxBaseTilemap<Tile:FlxObject> extends FlxObject
 	 * @return  A reference to this instance of FlxTilemap, for chaining as usual :)
 	 * @since   4.1.0
 	 */
-	public function loadMapFromGraphic(mapGraphic:FlxGraphicSource, invert = false, scale = 1, ?colorMap:Array<FlxColor>,
-			tileGraphic:FlxTilemapGraphicAsset, tileWidth = 0, tileHeight = 0, ?autoTile:FlxTilemapAutoTiling,
-			startingIndex = 0, drawIndex = 1, collideIndex = 1)
+	public function loadMapFromGraphic(mapGraphic:FlxGraphicSource, invert = false, scale = 1, ?colorMap:Array<FlxColor>, tileGraphic:FlxTilemapGraphicAsset,
+			tileWidth = 0, tileHeight = 0, ?autoTile:FlxTilemapAutoTiling, startingIndex = 0, drawIndex = 1, collideIndex = 1)
 	{
 		var mapBitmap:BitmapData = FlxAssets.resolveBitmapData(mapGraphic);
 		var mapData:String = FlxStringUtil.bitmapToCSV(mapBitmap, invert, scale, colorMap);
 		return loadMapFromCSV(mapData, tileGraphic, tileWidth, tileHeight, autoTile, startingIndex, drawIndex, collideIndex);
 	}
 
-	function loadMapHelper(tileGraphic:FlxTilemapGraphicAsset, tileWidth = 0, tileHeight = 0, ?autoTile:FlxTilemapAutoTiling,
-			startingIndex = 0, drawIndex = 1, collideIndex = 1)
+	function loadMapHelper(tileGraphic:FlxTilemapGraphicAsset, tileWidth = 0, tileHeight = 0, ?autoTile:FlxTilemapAutoTiling, startingIndex = 0,
+			drawIndex = 1, collideIndex = 1)
 	{
 		// anything < 0 should be treated as 0 for compatibility with certain map formats (ogmo)
 		for (i in 0..._data.length)
@@ -901,8 +900,7 @@ class FlxBaseTilemap<Tile:FlxObject> extends FlxObject
 	 * @return  An Array of FlxPoints, containing all waypoints from the start to the end.  If no path could be found,
 	 *          then a null reference is returned.
 	 */
-	public inline function findPathCustom(pathfinder:FlxPathfinder, start:FlxPoint, end:FlxPoint,
-		simplify:FlxPathSimplifier = LINE):Array<FlxPoint>
+	public inline function findPathCustom(pathfinder:FlxPathfinder, start:FlxPoint, end:FlxPoint, simplify:FlxPathSimplifier = LINE):Array<FlxPoint>
 	{
 		return pathfinder.findPath(cast this, start, end, simplify);
 	}
@@ -922,11 +920,10 @@ class FlxBaseTilemap<Tile:FlxObject> extends FlxObject
 		var data = computePathData(startIndex, endIndex, diagonalPolicy, stopOnEnd);
 		if (data != null)
 			return data.distances;
-		
+
 		return null;
 	}
 
-	
 	/**
 	 * Pathfinding helper function, floods a grid with distance information until it finds the end point.
 	 * NOTE: Currently this process does NOT use any kind of fancy heuristic! It's pretty brute.

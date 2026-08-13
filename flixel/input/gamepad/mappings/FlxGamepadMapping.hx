@@ -101,12 +101,12 @@ class FlxGamepadMapping
 	{
 		return this.attachment = attachment;
 	}
-	
+
 	public function getInputLabel(id:FlxGamepadInputID):Null<String>
 	{
 		if (getRawID(id) == -1)
-			return null;// return empty string, "unknown" or enum maybe?
-		
+			return null; // return empty string, "unknown" or enum maybe?
+
 		return switch (id)
 		{
 			case A: "a";

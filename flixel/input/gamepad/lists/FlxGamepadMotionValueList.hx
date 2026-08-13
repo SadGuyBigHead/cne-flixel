@@ -12,7 +12,6 @@ class FlxGamepadMotionValueList
 	var gamepad:FlxGamepad;
 
 	@:allow(flixel.input.gamepad.FlxGamepad)
-
 	/**
 	 * whether or not the current gamepad model supports any motion features
 	 */

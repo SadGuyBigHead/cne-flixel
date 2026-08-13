@@ -301,8 +301,7 @@ class DigitalActionData
 	}
 }
 
-@:allow(flixel.input.actions)
-#if !FLX_UNIT_TEST #end class FlxSteamControllerMetadata
+@:allow(flixel.input.actions) #if !FLX_UNIT_TEST #end class FlxSteamControllerMetadata
 {
 	public var handle:Int = -1;
 	public var actionSet:Int = -1;

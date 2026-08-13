@@ -1,4 +1,5 @@
 package flixel.system;
+
 /**
  * This is the universal flixel sound object, used for streaming, music, and sound effects.
  */

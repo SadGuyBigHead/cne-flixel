@@ -149,8 +149,7 @@ class EditableTextField extends TextField implements IFlxDestroyable
 			case TBool if (text == "true"): true;
 			case TBool if (text == "false"): false;
 			case TEnum(e):
-				try Type.createEnum(e, text)
-				catch (_:Dynamic) null;
+				try Type.createEnum(e, text) catch (_:Dynamic) null;
 			case _: text;
 		}
 

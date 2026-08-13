@@ -40,11 +40,13 @@ class FlxSwipe implements IFlxDestroyable
 
 	public function destroy()
 	{
-		if(startPosition != null) {
+		if (startPosition != null)
+		{
 			startPosition.putWeak();
 			startPosition = null;
 		}
-		if(endPosition != null) {
+		if (endPosition != null)
+		{
 			endPosition.putWeak();
 			endPosition = null;
 		}

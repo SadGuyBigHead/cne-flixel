@@ -88,8 +88,20 @@ class Tracker extends Watch
 			profiles = [];
 
 			addProfile(new TrackerProfile(FlxG, [
-				"width", "height", "worldBounds.x", "worldBounds.y", "worldBounds.width", "worldBounds.height", "worldDivisions", "updateFramerate",
-				"drawFramerate", "elapsed", "maxElapsed", "autoPause", "fixedTimestep", "timeScale"
+				"width",
+				"height",
+				"worldBounds.x",
+				"worldBounds.y",
+				"worldBounds.width",
+				"worldBounds.height",
+				"worldDivisions",
+				"updateFramerate",
+				"drawFramerate",
+				"elapsed",
+				"maxElapsed",
+				"autoPause",
+				"fixedTimestep",
+				"timeScale"
 			]));
 
 			addProfile(new TrackerProfile(FlxBasePoint, ["x", "y"]));
@@ -129,7 +141,16 @@ class Tracker extends Watch
 			], [FlxBasic, FlxRect]));
 
 			addProfile(new TrackerProfile(FlxTween, [
-				"active", "duration", "type", "percent", "finished", "scale", "backward", "executions", "startDelay", "loopDelay"
+				"active",
+				"duration",
+				"type",
+				"percent",
+				"finished",
+				"scale",
+				"backward",
+				"executions",
+				"startDelay",
+				"loopDelay"
 			]));
 
 			addProfile(new TrackerProfile(FlxPath, ["speed", "angle", "autoCenter", "nodeIndex", "active", "finished"]));

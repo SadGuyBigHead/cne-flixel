@@ -4,7 +4,6 @@ import openfl.display.GraphicsShader;
 
 class FlxGraphicsShader extends GraphicsShader
 {
-	
 	@:glVertexHeader("
 		attribute float alpha;
 		attribute vec4 colorMultiplier;

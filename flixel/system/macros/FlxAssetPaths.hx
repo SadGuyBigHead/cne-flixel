@@ -4,6 +4,7 @@ package flixel.system.macros;
 import haxe.macro.Context;
 import haxe.macro.Expr;
 import sys.FileSystem;
+
 using StringTools;
 using flixel.util.FlxArrayUtil;
 
@@ -23,7 +24,7 @@ class FlxAssetPaths
 		// create new fields based on file references!
 		for (fileRef in fileReferences)
 			fields.push(fileRef.createField());
-		
+
 		return fields;
 	}
 
@@ -60,7 +61,7 @@ class FlxAssetPaths
 
 		return fileReferences;
 	}
-	
+
 	static function addIfUnique(fileReferences:Array<FileReference>, file:FileReference)
 	{
 		for (i in 0...fileReferences.length)
@@ -82,10 +83,11 @@ class FlxAssetPaths
 				return;
 			}
 		}
-		
+
 		fileReferences.push(file);
 	}
 }
+
 class FileReference
 {
 	static var valid = ~/^[_A-Za-z]\w*$/;
@@ -111,10 +113,10 @@ class FileReference
 			warnAsset('Invalid name: $name for file: $value', value);
 			return null;
 		}
-		
+
 		if (library != "default" && library != "" && library != null)
 			value = '$library:$value';
-		
+
 		return new FileReference(name, value);
 	}
 
@@ -128,27 +130,26 @@ class FileReference
 		this.value = value;
 		this.documentation = "`\"" + value + "\"` (auto generated).";
 	}
-	
+
 	public function createField():Field
 	{
 		return {
 			name: name,
 			doc: documentation,
 			access: [Access.APublic, Access.AStatic, Access.AInline],
-			kind: FieldType.FVar(macro:String, macro $v{value}),
+			kind: FieldType.FVar(macro :String, macro $v{value}),
 			pos: Context.currentPos()
 		};
 	}
-	
+
 	public inline function warn(msg:String)
 	{
 		warnAsset(msg, value);
 	}
-	
+
 	public static inline function warnAsset(msg:String, filePath:String)
 	{
 		Context.warning(msg, Context.makePosition({min: 0, max: 0, file: filePath}));
 	}
 }
-
 #end

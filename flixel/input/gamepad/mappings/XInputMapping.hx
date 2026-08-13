@@ -119,15 +119,8 @@ class XInputMapping extends FlxGamepadMapping
 	{
 		// Analog stick and trigger values overlap with regular buttons so we remap to "fake" button ID's
 		return if (axisID == leftStick.x) LEFT_ANALOG_STICK_FAKE_X; else if (axisID == leftStick.y) LEFT_ANALOG_STICK_FAKE_Y; else if (axisID == rightStick.x)
-			RIGHT_ANALOG_STICK_FAKE_X;
-		else if (axisID == rightStick.y)
-			RIGHT_ANALOG_STICK_FAKE_Y;
-		else if (axisID == XInputID.LEFT_TRIGGER)
-			LEFT_TRIGGER_FAKE;
-		else if (axisID == XInputID.RIGHT_TRIGGER)
-			RIGHT_TRIGGER_FAKE;
-		else
-			axisID;
+			RIGHT_ANALOG_STICK_FAKE_X; else if (axisID == rightStick.y) RIGHT_ANALOG_STICK_FAKE_Y; else if (axisID == XInputID.LEFT_TRIGGER)
+			LEFT_TRIGGER_FAKE; else if (axisID == XInputID.RIGHT_TRIGGER) RIGHT_TRIGGER_FAKE; else axisID;
 	}
 	#end
 }

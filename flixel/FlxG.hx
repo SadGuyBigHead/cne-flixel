@@ -156,6 +156,7 @@ class FlxG
 	 */
 	@:allow(flixel.FlxGame.updateElapsed)
 	public static var elapsed(default, null):Float = 0;
+
 	/**
 	 * Represents the amount of time in seconds that passed since last frame. (Ignoring timescale)
 	 */

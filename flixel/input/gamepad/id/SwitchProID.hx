@@ -3,19 +3,19 @@ package flixel.input.gamepad.id;
 import flixel.input.gamepad.FlxGamepadAnalogStick;
 
 /**
- * IDs for Switch Pro controllers
- *
- *-------
- * NOTES
- *-------
- *
- * WINDOWS: untested.
- *
- * LINUX: untested
- *
- * MAC: Worked out of box for me when connected via microUSB cable or Bluetooth
- * 
- * @since 4.8.0
+	* IDs for Switch Pro controllers
+	*
+	*-------
+	* NOTES
+	*-------
+	*
+	* WINDOWS: untested.
+	*
+	* LINUX: untested
+	*
+	* MAC: Worked out of box for me when connected via microUSB cable or Bluetooth
+	* 
+	* @since 4.8.0
  */
 class SwitchProID
 {
@@ -82,5 +82,4 @@ class SwitchProID
 		right: 29
 	});
 	#end
-	
 }

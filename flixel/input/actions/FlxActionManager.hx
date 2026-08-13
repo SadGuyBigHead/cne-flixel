@@ -243,10 +243,7 @@ class FlxActionManager implements IFlxInputManager implements IFlxDestroyable
 						#end
 					case FlxInputDeviceID.NONE: index = -1;
 					default:
-						if (register.gamepadAllSet != -1)
-							index = register.gamepadAllSet;
-						else
-							id = deviceID;
+						if (register.gamepadAllSet != -1) index = register.gamepadAllSet; else id = deviceID;
 				}
 				if (id >= 0 && id < register.gamepadSets.length)
 				{
@@ -258,10 +255,7 @@ class FlxActionManager implements IFlxInputManager implements IFlxDestroyable
 					case FlxInputDeviceID.ALL: index = register.steamControllerAllSet;
 					case FlxInputDeviceID.NONE: index = -1;
 					default:
-						if (register.steamControllerAllSet != -1)
-							index = register.steamControllerAllSet;
-						else
-							id = deviceID;
+						if (register.steamControllerAllSet != -1) index = register.steamControllerAllSet; else id = deviceID;
 				}
 				if (id >= 0 && id < register.steamControllerSets.length)
 				{

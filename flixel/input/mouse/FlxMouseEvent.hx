@@ -28,8 +28,7 @@ class FlxMouseEvent<T:FlxObject> implements IFlxDestroyable
 	public static inline function add<T:FlxObject>(object:T, ?onMouseDown:T->Void, ?onMouseUp:T->Void, ?onMouseOver:T->Void, ?onMouseOut:T->Void,
 			mouseChildren = false, mouseEnabled = true, pixelPerfect = true, ?mouseButtons:Array<FlxMouseButtonID>):T
 	{
-		return globalManager.add(object, onMouseDown, onMouseUp, onMouseOver, onMouseOut,
-			mouseChildren, mouseEnabled, pixelPerfect, mouseButtons);
+		return globalManager.add(object, onMouseDown, onMouseUp, onMouseOver, onMouseOut, mouseChildren, mouseEnabled, pixelPerfect, mouseButtons);
 	}
 
 	/**
@@ -213,8 +212,8 @@ class FlxMouseEvent<T:FlxObject> implements IFlxDestroyable
 	public var currentMouseButton:Null<FlxMouseButtonID>;
 
 	@:allow(flixel.input.mouse.FlxMouseEventManager)
-	function new(object:T, onMouseDown:T->Void, onMouseUp:T->Void, onMouseOver:T->Void, onMouseOut:T->Void,
-		mouseChildren:Bool, mouseEnabled:Bool, pixelPerfect:Bool, mouseButtons:Null<Array<FlxMouseButtonID>>)
+	function new(object:T, onMouseDown:T->Void, onMouseUp:T->Void, onMouseOver:T->Void, onMouseOut:T->Void, mouseChildren:Bool, mouseEnabled:Bool,
+			pixelPerfect:Bool, mouseButtons:Null<Array<FlxMouseButtonID>>)
 	{
 		this.object = object;
 		this.onMouseDown = onMouseDown;
