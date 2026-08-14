@@ -785,6 +785,7 @@ class FlxAnimationController implements IFlxDestroyable
 	}
 
 	@:allow(flixel.animation)
+	@:haxe.warning("-WDeprecated")
 	function firePlayCallback(name:String, forced:Bool, reversed:Bool, frame:Int):Void
 	{
 		if (playCallback != null)
@@ -796,6 +797,7 @@ class FlxAnimationController implements IFlxDestroyable
 	}
 
 	@:allow(flixel.animation)
+	@:haxe.warning("-WDeprecated")
 	function fireLoopCallback(?name:String):Void
 	{
 		if (loopCallback != null)

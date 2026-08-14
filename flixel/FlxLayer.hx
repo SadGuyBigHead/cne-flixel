@@ -9,6 +9,7 @@ import flixel.graphics.FlxGraphic;
 import flixel.graphics.frames.FlxFrame;
 import flixel.graphics.tile.FlxDrawBaseItem;
 import flixel.graphics.tile.FlxDrawTrianglesItem;
+import flixel.graphics.tile.FlxDrawQuadsItem;
 import flixel.math.FlxMatrix;
 import flixel.system.FlxAssets.FlxShader;
 import openfl.display.BlendMode;
@@ -32,7 +33,7 @@ class FlxLayer extends FlxBasic
 	/**
 	 * Last draw tiles item
 	 */
-	var _headTiles:FlxDrawItem;
+	var _headTiles:FlxDrawQuadsItem;
 
 	/**
 	 * Last draw triangles item
@@ -42,7 +43,7 @@ class FlxLayer extends FlxBasic
 	/**
 	 * Draw tiles stack items that can be reused
 	 */
-	static var _storageTilesHead:FlxDrawItem;
+	static var _storageTilesHead:FlxDrawQuadsItem;
 
 	/**
 	 * Draw triangles stack items that can be reused
@@ -84,7 +85,7 @@ class FlxLayer extends FlxBasic
 
 		var item = _storageTilesHead;
 		if (item != null) _storageTilesHead = _storageTilesHead.nextTyped;
-		else item = new flixel.graphics.tile.FlxDrawQuadsItem();
+		else item = new FlxDrawQuadsItem();
 
 		item.graphics = graphic;
 		item.antialiasing = smooth;
@@ -254,7 +255,7 @@ class FlxLayer extends FlxBasic
 		}
 	}
 
-	public function injectDrawCall(camera:FlxCamera, drawItem:FlxDrawItem):Void
+	public function injectDrawCall(camera:FlxCamera, drawItem:FlxDrawQuadsItem):Void
 	{
 		drawItem.next = null;
 

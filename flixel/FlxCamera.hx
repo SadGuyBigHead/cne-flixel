@@ -527,9 +527,11 @@ class FlxCamera extends FlxBasic
 	@:deprecated("_filters is deprecated, use filters instead")
 	var _filters(get, set):Null<Array<BitmapFilter>>;
 
+	@:haxe.warning("-WDeprecated")
 	inline function get_filters():Array<BitmapFilter>
 		return _filters;
 
+	@:haxe.warning("-WDeprecated")
 	inline function set_filters(value:Array<BitmapFilter>):Array<BitmapFilter>
 		return _filters = value;
 
@@ -653,8 +655,8 @@ class FlxCamera extends FlxBasic
 	public function addShader(shader:FlxShader)
 	{
 		var filter:ShaderFilter = null;
-		if (_filters == null) _filters = [];
-		_filters.push(filter = new ShaderFilter(shader));
+		if (filters == null) filters = [];
+		filters.push(filter = new ShaderFilter(shader));
 		return filter;
 	}
 
@@ -665,12 +667,12 @@ class FlxCamera extends FlxBasic
 	 */
 	public function removeShader(shader:FlxShader):Bool
 	{
-		if (_filters == null) _filters = [];
-		for (f in _filters) {
+		if (filters == null) filters = [];
+		for (i => f in filters) {
 			if (f is ShaderFilter) {
 				var sf = cast(f, ShaderFilter);
 				if (sf.shader == shader) {
-					_filters.remove(f);
+					filters.splice(i, 1);
 					return true;
 				}
 			}
