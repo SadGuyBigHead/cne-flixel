@@ -14,6 +14,11 @@ import flixel.util.FlxTimer;
 class PluginFrontEnd
 {
 	/**
+	 * Yeaaaaaaaaaaaaaaaaaup
+	 */
+	public var active:Bool = true;
+
+	/**
 	 * An array container for plugins.
 	 */
 	public var list(default, null):Array<FlxBasic> = [];
@@ -151,6 +156,9 @@ class PluginFrontEnd
 	@:allow(flixel.FlxGame)
 	inline function update(elapsed:Float):Void
 	{
+		if (!active)
+			return;
+
 		for (plugin in list)
 		{
 			if (plugin.exists && plugin.active)

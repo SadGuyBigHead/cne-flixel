@@ -54,6 +54,11 @@ class CameraFrontEnd
 	public var useBufferLocking:Bool = false;
 
 	/**
+	 * Ohhhh yeahhhh
+	 */
+	public var active:Bool = true;
+
+	/**
 	 * Internal helper variable for clearing the cameras each frame.
 	 */
 	var _cameraRect:Rectangle = new Rectangle();
@@ -437,6 +442,9 @@ class CameraFrontEnd
 	@:allow(flixel.FlxGame)
 	inline function update(elapsed:Float):Void
 	{
+		if (!active)
+			return;
+
 		for (camera in list)
 		{
 			if (camera != null && camera.exists && camera.active)
