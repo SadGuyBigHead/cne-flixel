@@ -38,7 +38,7 @@ class FlxSound extends FlxBasic
 	/**
 	 * The default value for the `timeScaledPitch` variable at creation if none is specified in the constructor.
 	 */
-	public static var defaultTimeScaledPitch:Bool = false;
+	public static var defaultTimeScaledPitch:Bool = true;
 	#end
 
 	/**
@@ -56,24 +56,20 @@ class FlxSound extends FlxBasic
 
 		for (sound in sounds)
 		{
-			if (sound == null || !sound.exists) continue;
+			if (sound == null || !sound.loaded || !sound.exists || sound._pausedByHandler) continue;
 
-			if (sound._pausedByHandler) sound.resume();
-			else
-			{
-				sources.push(sound.source);
+			sources.push(sound.source);
 
-				sound._updateVolume();
-				#if FLX_PITCH
-				sound._updatePitch();
-				#end
-				sound._updatePan();
-				sound._updateLoop();
+			sound._updateVolume();
+			#if FLX_PITCH
+			sound._updatePitch();
+			#end
+			sound._updatePan();
+			sound._updateLoop();
 
-				sound._paused = false;
-				sound._completed = false;
-				sound.active = false;
-			}
+			sound._paused = false;
+			sound._completed = false;
+			sound.active = true;
 		}
 
 		AudioSource.playSources(sources);
@@ -404,6 +400,31 @@ class FlxSound extends FlxBasic
 	var _point:FlxPoint;
 	var _point2:FlxPoint;
 
+	// CNE Deprecated Variables, soon to be removed?
+	var buffer(get, set):AudioBuffer;
+	function get_buffer():AudioBuffer return data != null ? data.buffer : null;
+	function set_buffer(v:AudioBuffer):AudioBuffer return data != null ? (data.buffer = v) : v;
+
+	var _sound(get, set):Sound;
+	function get__sound():Sound return data != null ? data._sound : null;
+	function set__sound(v:Sound):Sound return data != null ? (data._sound = v) : v;
+
+	var _source(get, never):AudioSource;
+	function get__source():AudioSource return source;
+
+	var _channel(get, null):SoundChannel;
+	function get__channel():SoundChannel {
+		if (_channel == null) @:privateAccess {
+			_channel = new SoundChannel(_sound, null);
+			_channel.__audioSource = source;
+		}
+		return _channel;
+	}
+
+	var _transform(get, set):SoundTransform;
+	function get__transform():SoundTransform return _channel.soundTransform;
+	function set__transform(v:SoundTransform):SoundTransform return _channel.soundTransform = v;
+
 	/**
 	 * The FlxSound constructor gets all the variables initialized, but NOT ready to play a sound yet.
 	 */
@@ -479,6 +500,8 @@ class FlxSound extends FlxBasic
 	override function destroy():Void
 	{
 		kill();
+
+		if (group != null) group.remove(this);
 		source.dispose();
 
 		_point = FlxDestroyUtil.put(_point);
@@ -722,9 +745,6 @@ class FlxSound extends FlxBasic
 
 	function init(data:FlxSoundData, ?looped:Bool, ?loopTime:Float, ?endTime:Float, autoDestroy = false, ?onComplete:Void->Void):FlxSound
 	{
-		exists = true;
-		alive = true;
-
 		stop();
 
 		this.autoDestroy = autoDestroy;
@@ -747,6 +767,9 @@ class FlxSound extends FlxBasic
 				unload();
 			}
 		}
+
+		exists = true;
+		alive = true;
 
 		if (looped != null) this.looped = looped;
 		if (loopTime != null) this.loopTime = loopTime;
@@ -1106,7 +1129,7 @@ class FlxSound extends FlxBasic
 	function set_group(value:FlxSoundGroup):FlxSoundGroup
 	{
 		if (value != null) value.add(this);
-		else group.remove(this);
+		else if (group != null) group.remove(this);
 		return group;
 	}
 

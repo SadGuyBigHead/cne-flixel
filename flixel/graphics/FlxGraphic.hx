@@ -18,9 +18,6 @@ import openfl.display.BitmapData;
  */
 class FlxGraphic implements IFlxDestroyable
 {
-	@:allow(flixel.system.frontEnds.BitmapFrontEnd)
-	private var mustDestroy:Bool = false;
-
 	/**
 	 * The default value for the `persist` variable at creation if none is specified in the constructor.
 	 * @see [FlxGraphic.persist](https://api.haxeflixel.com/flixel/graphics/FlxGraphic.html#persist)
@@ -32,6 +29,12 @@ class FlxGraphic implements IFlxDestroyable
 	 * @since	FunkinCrew's Flixel
 	 */
 	public static var defaultDestroyOnNoUse:Bool = true;
+
+	/**
+	 * The default shader for FlxGraphic.
+	 * @since	CodenameCrew's Flixel
+	 */
+	public static var defaultShader:Null<FlxShader> = new FlxShader();
 
 	/**
 	 * Creates and caches FlxGraphic object from openfl.Assets key string.
@@ -66,7 +69,7 @@ class FlxGraphic implements IFlxDestroyable
 
 		graphic = createGraphic(bitmap, key, Unique);
 		graphic.assetsKey = Source;
-		graphic.destroyOnNoUse = false;
+		graphic.destroyOnNoUse = false; // Don't destroy immediately on no use for assets
 		return graphic;
 	}
 
@@ -383,6 +386,9 @@ class FlxGraphic implements IFlxDestroyable
 	 */
 	public var trackingInfo:String = "";
 	#end
+
+	@:allow(flixel.system.frontEnds.BitmapFrontEnd)
+	var mustDestroy:Bool = false;
 	
 	/**
 	 * Internal var holding `FlxImageFrame` for the whole bitmap of this graphic.
@@ -419,7 +425,7 @@ class FlxGraphic implements IFlxDestroyable
 		frameCollectionTypes = new Array<FlxFrameCollectionType>();
 		this.bitmap = bitmap;
 
-		shader = new FlxShader();
+		shader = (defaultShader != null) ? defaultShader : new FlxShader();
 	}
 
 	/**
@@ -583,21 +589,19 @@ class FlxGraphic implements IFlxDestroyable
 	
 	public function incrementUseCount()
 	{
-		useCount++;
-
-		mustDestroy = false;
+		@:bypassAccessor useCount++;
 	}
 	
 	public function decrementUseCount()
 	{
-		useCount--;
+		@:bypassAccessor useCount--;
 		
 		checkUseCount();
 	}
 	
 	function checkUseCount()
 	{
-		if (!FlxG.bitmap.__doNotDelete && useCount <= 0 && destroyOnNoUse && key != null && !persist)
+		if (!FlxG.bitmap.__doNotDelete && !mustDestroy && useCount <= 0 && destroyOnNoUse && key != null && !persist)
 			FlxG.bitmap.remove(this);
 	}
 
